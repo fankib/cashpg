@@ -1,0 +1,43 @@
+<div *ngIf="contact" class="container">
+  <div class="form-group">
+    <div class="btn-group">
+      <app-back-button></app-back-button>
+      <div class="btn-group pull-right">
+        <button class="btn btn-primary">
+          Verify
+        </button>
+        <button type="button"
+        class="btn btn-primary"
+        routerLink="./sendPayment">
+        Send Payment
+        </button>
+      </div>
+    </div>
+  </div>
+  <h2><small>{{contact.name}}</small></h2>
+  <p class="fingerprint">7906 ACF1 AF5D 1855 67FA<br>
+     2A90 10A9 791E 15AC 3454</p>
+  <div *ngIf="contact.totalDebt >= 0">
+    <p class="debt">You own him {{contact.totalDebt}}.-</p>
+  </div>
+  <div *ngIf="contact.totalDebt < 0">
+    <p class="debt">He owns you {{contact.totalDebt * -1}}.-</p>
+  </div>
+  <h3><small>Transactions</small></h3>
+  <div class="table-responsive">
+    <table class="table table-default">
+      <tr>
+        <th>Id</th>
+        <th>Incomming</th>
+        <th>Outgoing</th>
+      </tr>
+      <tr *ngFor="let transaction of contact.transactions">
+        <td>{{transaction.id}}</td>
+        <td *ngIf="transaction.outgoing"></td>
+        <td *ngIf="transaction.outgoing">{{transaction.amount}}.-</td>
+        <td *ngIf="!transaction.outgoing">{{transaction.amount}}.-</td>
+        <td *ngIf="!transaction.outgoing"></td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="form-group">
+    <button type="button"
+    class="btn btn-primary"
+    routerLink="/addIdentity">
+    Add Identity
+    </button>
+  </div>
+</div>
+<div class="container">
+  <ul class="link-list">
+    <li *ngFor="let identity of identities"
+    routerLink="/identity/{{identity.id}}">
+      {{identity.id}}: {{identity.name}}
+    </li>
+  </ul>
+</div>

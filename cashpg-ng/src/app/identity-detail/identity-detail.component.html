@@ -1,0 +1,28 @@
+<div *ngIf="identity" class="container">
+  <div class="form-group">
+    <div class="btn-group">
+      <app-back-button></app-back-button>
+      <div class="btn-group pull-right">
+        <button type="button"
+        class="btn btn-primary"
+        routerLink="/identity/{{identity.id}}/addContact">
+        Add Contact
+        </button>
+        <button type="button"
+        class="btn btn-primary"
+        (click)="update()">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <h2><small>{{identity.name}}</small></h2>
+  </div>
+  <ul class="link-list">
+  <li *ngFor="let contact of identity.contacts"
+  class="contact verified-{{contact.verified}}"
+  routerLink="/identity/{{identity.id}}/contact/{{contact.id}}">
+    <p><span class="name">{{contact.name}}</span><br>
+    <span class="debt">My debt: {{contact.totalDebt}}.-</span></p>
+  </li>
+  </ul>
+</div>

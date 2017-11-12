@@ -1,0 +1,13 @@
+.fingerprint{
+  color: #444;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  font-family: monospace;
+  padding: 10px;
+  text-align: center;
+}
+
+.debt{
+  font-size: larger;
+}

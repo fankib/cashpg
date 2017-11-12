@@ -1,0 +1,162 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+table, thead, tbody, tr, th, td{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-collapse: collapse;
+}
+
+.table{
+  width: 100%;
+}
+
+.table th{
+  text-align: left;
+}
+
+.table-responsive{
+  overflow-x: scroll;
+}
+
+.table-default th, .table-default td{
+  padding: 10px;
+  border: 1px solid #666;
+}
+
+.table-default th{
+  background-color: #444;
+  border-color: #000;
+  color: #fff;
+}
+
+.btn{
+  padding: 10px 16px;
+  color: #222;
+  border: 1px solid;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 4px;
+  font-size: larger;
+  color: #FFF;
+}
+
+.btn-primary{
+  border-color: #ef4a13;
+  background-color: #ed7953;
+}
+
+.btn-primary:hover{
+  background-color: #e5663b;
+}
+
+.btn-group{
+  width: 100%;
+}
+
+.btn-group .btn-group{
+  display: inline-block;
+  width: auto;
+}
+
+.btn-group .btn{
+  display: inline-block;
+  width: auto;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.pull-left{
+  float: left;
+}
+
+.pull-right{
+  float: right;
+}
+
+.col-xs-6{
+  width: 49%;
+}
+
+.container{
+  margin: 0px 10px;
+}
+
+.form-group{
+  margin: 10px 0px;
+}
+
+.form-group label{
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 4px;
+}
+
+.form-group input{
+  padding: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  border: 1px solid #444;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.taskbar{
+  text-align: center;
+  background-color: #222;
+  color: #EEE;
+}
+.taskbar h1{
+  margin: 0px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+ul.link-list{
+  padding: 0px;
+}
+
+.link-list li{
+  cursor: pointer;
+  width: 100%;
+  display: block;
+  padding-top:10px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+  vertical-align: middle;
+}
+
+.link-list li p{
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  width: 80%;
+}
+
+
+
+.link-list li::after{
+  content: "\f054";
+  float: right;
+}
+
+.link-list li:hover{
+  color: #44bcdd;
+}
+
+
+/* font-awesome */
+.link-list li::after{
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  margin:0px 0px 0px 10px;
+  text-decoration:none;
+}
