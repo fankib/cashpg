@@ -27,7 +27,7 @@ export class AddIdentityComponent implements OnInit {
     this.identityService.create(this.name).then(identity => {
       this.hkpService.publishKey(identity.publicKeyArmored)
         .then(response => {
-          console.log(response);
+          this.identityService.addIdentity(identity);
           this.router.navigate(['/']);
         });
     });

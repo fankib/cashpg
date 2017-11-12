@@ -2,9 +2,8 @@
 import { Payment } from './payment';
 
 export class Transaction{
-  id: number;
-  from: number;
-  to: number;
+  id: string;
+  from: string;
+  to: string;
   paymentCipher: string;
-  payment: Payment;
 }

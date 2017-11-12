@@ -11,7 +11,6 @@ import { OpenpgpService } from './openpgp.service';
 export class IdentityService {
 
   identities: Identity[];
-  idCounter: number = 1;
 
   constructor(
     private openpgpService: OpenpgpService
@@ -20,33 +19,32 @@ export class IdentityService {
   }
 
   create(name): Promise<Identity>{
-    let promise = new Promise<Identity>((resolve, reject) => {
-      var email = name+'@cashpg.ch';
-      this.openpgpService.generateKey(name, email).then(key => {
+    var email = name+'@test.cashpg.ch';
+    return this.openpgpService.generateKey(name, email).then(key => {
 
-        let identity = new Identity();
+      let identity = new Identity();
 
-        identity.privateKeyArmored =  (<any>key).privateKeyArmored;
-        identity.publicKeyArmored = (<any>key).publicKeyArmored;
+      identity.privateKeyArmored =  (<any>key).privateKeyArmored;
+      identity.publicKeyArmored = (<any>key).publicKeyArmored;
 
-        identity.id=this.idCounter++;
-        identity.name=email;
-        identity.contacts = [];
+      identity.id=(<any>key).key.primaryKey.fingerprint;
+      identity.name=email;
+      identity.contacts = [];
 
-        this.identities.push(identity);
-        this.save();
-
-        resolve(identity);
-      });
+      return identity;
     });
-    return promise;
+  }
+
+  addIdentity(identity){
+    this.identities.push(identity);
+    this.save();
   }
 
   findAll(){
     return this.identities;
   }
 
-  findById(id:number){
+  findById(id:string){
     return this.findAll()
       .find(identity => identity.id == id);
   }
@@ -56,7 +54,7 @@ export class IdentityService {
     this.save();
   }
 
-  addOutgoingTransaction(contact:Contact, id:number, amount:number){
+  addOutgoingTransaction(contact:Contact, id:string, amount:number){
     var clearTransaction = new ClearTransaction();
     clearTransaction.id = id;
     clearTransaction.outgoing = true;
@@ -66,7 +64,7 @@ export class IdentityService {
     this.save();
   }
 
-  addIncommingTransaction(contact:Contact, id:number, amount:number){
+  addIncommingTransaction(contact:Contact, id:string, amount:number){
     var clearTransaction = new ClearTransaction();
     clearTransaction.id = id;
     clearTransaction.outgoing = false;
@@ -105,7 +103,6 @@ export class IdentityService {
       this.identities = [];
       return;
     }
-    this.idCounter = this.identities[this.identities.length-1].id+1;
   }
 
 }

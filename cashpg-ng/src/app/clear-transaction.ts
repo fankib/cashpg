@@ -1,5 +1,5 @@
 export class ClearTransaction{
-  id: number;
+  id: string;
   outgoing: boolean;
   amount: number;
 }

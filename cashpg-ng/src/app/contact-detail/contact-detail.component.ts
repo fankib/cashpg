@@ -25,8 +25,8 @@ export class ContactDetailComponent implements OnInit {
   }
 
   getContact(): Contact{
-    const id = +this.route.snapshot.paramMap.get('id');
-    const cid = +this.route.snapshot.paramMap.get('cid');
+    const id = this.route.snapshot.paramMap.get('id');
+    const cid = this.route.snapshot.paramMap.get('cid');
     for ( let identity of this.identityService.findAll() ){
       if ( identity.id == id ){
         for ( let contact of identity.contacts){

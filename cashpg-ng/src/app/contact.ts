@@ -1,10 +1,9 @@
 import { ClearTransaction } from './clear-transaction';
 
 export class Contact{
-  id: number;
+  id: string;
   name: string;
   publicKeyArmored: string;
-  fingerprint: string;
   verified: boolean;
   totalDebt: number;
   transactions: ClearTransaction[] = [];

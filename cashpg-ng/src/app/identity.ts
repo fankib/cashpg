@@ -1,7 +1,7 @@
 import { Contact } from './contact';
 
 export class Identity{
-  id: number;
+  id: string;
   name: string;
   privateKeyArmored: string;
   publicKeyArmored: string;

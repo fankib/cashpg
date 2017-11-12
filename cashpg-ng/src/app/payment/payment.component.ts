@@ -18,6 +18,7 @@ export class PaymentComponent implements OnInit {
   identity: Identity;
   contact: Contact;
   amountStr: string;
+  currency: string = "Fr";
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +31,9 @@ export class PaymentComponent implements OnInit {
     var amount = parseInt(this.amountStr);
     if ( amount !== amount ){ // ugly NaN check
       return;
+    }
+    if ( this.currency == 'Fr' ){
+      amount = amount * 100;
     }
     this.paymentService.sendPayment(this.identity, this.contact, amount).then(obj => {
       this.router.navigate(['../'], {
@@ -44,8 +48,8 @@ export class PaymentComponent implements OnInit {
 
   // copy paste
   loadContact(){
-    const id = +this.route.snapshot.paramMap.get('id');
-    const cid = +this.route.snapshot.paramMap.get('cid');
+    const id = this.route.snapshot.paramMap.get('id');
+    const cid = this.route.snapshot.paramMap.get('cid');
     for ( let identity of this.identityService.findAll() ){
       if ( identity.id == id ){
         this.identity = identity;

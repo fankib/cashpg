@@ -6,7 +6,7 @@ export class HkpService {
   constructor() { }
 
   publishKey(publicKey){
-    return this.localHkp().upload(publicKey);
+    return this.mitHkp().upload(publicKey);
   }
 
   search(query):Promise<any>{
@@ -14,10 +14,14 @@ export class HkpService {
       query: query
     };
     return this.mitHkp()
-      .lookup(options)
-      .then(result =>{
-        return (<any>window).openpgp.key.readArmored(result).keys;
-      });
+      .lookup(options);
+  }
+
+  getKey(fingerprint):Promise<any>{
+    var options = {
+      keyId: fingerprint
+    }
+    return this.mitHkp().lookup(options);
   }
 
 

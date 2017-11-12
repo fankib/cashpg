@@ -14,18 +14,12 @@ export class OpenpgpService {
   generateKey(name:string, email:string){
    var options = {
      comment: 'cashpg.ch',
-     userIds: [{ name:name, email:email}],  // multiple user IDs
-     numBits: 1024,                                       // RSA key size
-     passphrase: 'C3PO'                                   // protects the private key
+     userIds: [{ name:name, email:email}],
+     numBits: 2048,
+     passphrase: 'C3PO'
    };
 
-   let promise = new Promise((resolve, reject) => {
-     this.openpgp().generateKey(options).then(function(key) {
-       resolve(key);
-     });
-   });
-
-  return promise;
+   return this.openpgp().generateKey(options);
   }
 
   encryptThenSign(params): Promise<string>{

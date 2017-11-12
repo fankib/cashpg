@@ -15,13 +15,12 @@
     </div>
   </div>
   <h2><small>{{contact.name}}</small></h2>
-  <p class="fingerprint">7906 ACF1 AF5D 1855 67FA<br>
-     2A90 10A9 791E 15AC 3454</p>
+  <app-fingerprint fingerprint="{{contact.id}}"></app-fingerprint>
   <div *ngIf="contact.totalDebt >= 0">
-    <p class="debt">You own him {{contact.totalDebt}}.-</p>
+    <p class="debt">You own him/her {{contact.totalDebt | currency}}</p>
   </div>
   <div *ngIf="contact.totalDebt < 0">
-    <p class="debt">He owns you {{contact.totalDebt * -1}}.-</p>
+    <p class="debt">He/She owns you {{contact.totalDebt * -1 | currency}}</p>
   </div>
   <h3><small>Transactions</small></h3>
   <div class="table-responsive">
@@ -31,11 +30,11 @@
         <th>Incomming</th>
         <th>Outgoing</th>
       </tr>
-      <tr *ngFor="let transaction of contact.transactions">
-        <td>{{transaction.id}}</td>
+      <tr *ngFor="let transaction of contact.transactions.slice().reverse()">
+        <td><div class="uuid">{{transaction.id}}</div></td>
         <td *ngIf="transaction.outgoing"></td>
-        <td *ngIf="transaction.outgoing">{{transaction.amount}}.-</td>
-        <td *ngIf="!transaction.outgoing">{{transaction.amount}}.-</td>
+        <td *ngIf="transaction.outgoing">{{transaction.amount | currency}}</td>
+        <td *ngIf="!transaction.outgoing">{{transaction.amount | currency}}</td>
         <td *ngIf="!transaction.outgoing"></td>
       </tr>
     </table>

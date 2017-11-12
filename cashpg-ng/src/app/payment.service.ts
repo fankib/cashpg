@@ -19,8 +19,11 @@ export class PaymentService {
     private identityService: IdentityService
   ) { }
 
-  uuid():number {
-    return Math.floor(Math.random() * 1000000);
+  uuidv4():string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
   }
 
   sendPayment(identity: Identity, contact:Contact, amount:number){
@@ -32,7 +35,7 @@ export class PaymentService {
       message: payment
     }).then(cipher =>{
       var transaction = new Transaction();
-      transaction.id = this.uuid();
+      transaction.id = this.uuidv4();
       transaction.from = identity.id;
       transaction.to = contact.id;
       transaction.paymentCipher = cipher;

@@ -15,14 +15,20 @@
         </button>
       </div>
     </div>
-    <h2><small>{{identity.name}}</small></h2>
+    <h2><small>Dashboard <span class="back pull-right">{{identity.name}}</span></small></h2>
   </div>
+  <h3><small>Contacts</small></h3>
   <ul class="link-list">
-  <li *ngFor="let contact of identity.contacts"
-  class="contact verified-{{contact.verified}}"
-  routerLink="/identity/{{identity.id}}/contact/{{contact.id}}">
-    <p><span class="name">{{contact.name}}</span><br>
-    <span class="debt">My debt: {{contact.totalDebt}}.-</span></p>
-  </li>
+    <li *ngFor="let contact of identity.contacts"
+    class="contact verified-{{contact.verified}}"
+    routerLink="/identity/{{identity.id}}/contact/{{contact.id}}">
+      <p><span class="name">{{contact.name}}</span><br>
+      <span class="debt">My debt: {{contact.totalDebt | currency}}</span></p>
+    </li>
   </ul>
+
+  <h3><small>PGP Details</small></h3>
+  <app-fingerprint fingerprint="{{identity.id}}"></app-fingerprint>
+  <app-pgparmored title="Private Key Block" armored="{{identity.privateKeyArmored}}"></app-pgparmored>
+  <app-pgparmored title="Public Key Block" armored="{{identity.publicKeyArmored}}"></app-pgparmored>
 </div>

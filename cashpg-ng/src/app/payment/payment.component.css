@@ -1,0 +1,9 @@
+.form-control.amount{
+  display: inline-block;
+  width: 80%;
+}
+
+.form-control.currency{
+  display: inline-block;
+  width: 18%;
+}

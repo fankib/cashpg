@@ -31,7 +31,7 @@ export class AddContactComponent implements OnInit {
   }
 
   getIdentity(): Identity{
-    const id = +this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
     return this.identityService.findById(id);
   }
 
@@ -39,9 +39,14 @@ export class AddContactComponent implements OnInit {
     this.contactService.search(this.query).then(contacts => this.contacts = contacts);
   }
 
-  addContact(contact){
-    this.identityService.addContact(this.identity, contact);
-    this.router.navigate(["/identity", this.identity.id]);
+  addContact(contact:Contact){
+    if (this.identity.id == contact.id){
+      return;
+    }
+    this.contactService.updateWithPublicKeyArmored(contact).then(contact =>{
+      this.identityService.addContact(this.identity, contact);
+      this.router.navigate(["/identity", this.identity.id]);
+    });
   }
 
 }

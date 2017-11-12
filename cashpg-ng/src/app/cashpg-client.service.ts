@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import {Transaction} from './model/transaction';
 import {Payment} from './model/payment';
@@ -6,16 +7,20 @@ import {Payment} from './model/payment';
 @Injectable()
 export class CashpgClientService {
 
-  transactions: Transaction[]=[];
+  server="https://cashpg.benjamin-fankhauser.ch";
+  // prod:
+  // server = '';
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   publish(transaction: Transaction){
-    this.transactions.push(transaction);
+    this.http.post(this.server + '/api/transaction', transaction).subscribe();
   }
 
-  findByTo(to:number){
-    return this.transactions.filter(transaction => {return transaction.to == to});
+  findByTo(to:string){
+    return this.http.get(this.server + '/api/transaction/' + to);
   }
 
 }

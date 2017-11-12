@@ -1,0 +1,15 @@
+.armored{
+  border: 1px solid #AAA;
+  background-color: #ddd;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+.armored-title{
+  text-align: center;
+}
+
+.armored-block{
+  font-size: xx-small;
+  font-family: monospace;
+}
