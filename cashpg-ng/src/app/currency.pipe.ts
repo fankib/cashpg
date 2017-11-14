@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CurrencyPipe implements PipeTransform {
   transform(value: number): string {
 
-    var prefix = value > 0 ? '' : '-';
+    var prefix = value >= 0 ? '' : '-';
     value = Math.abs(value);
 
     var fr = Math.floor(value / 100);
@@ -18,6 +18,10 @@ export class CurrencyPipe implements PipeTransform {
       rps = '-';
     }
 
-    return prefix + frs + '.' + rps
+    var result = prefix + frs + '.' + rps;
+    if (result == "-.-"){
+      return '-';
+    }
+    return result;
   }
 }

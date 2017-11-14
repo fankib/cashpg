@@ -1,25 +1,28 @@
 li.contact{
-  background-color: #EEE;
+  background-color: #f1f1f1;
   margin-bottom: 16px;
-  padding: 5px 0px;
-  border: 0;
+  padding: 10px;
+  border: 2px dashed #ccc;
   border-radius: 5px;
+  box-sizing: border-box;
+  opacity: 0.6;
 }
 
 li.contact.verified-true{
-  background-color: #d6ffb1;
+  opacity: 1.0;
+  border-style: solid;
+  /* border-color: #d6ffb1; */
 }
 
 .contact .name{
   font-weight: bold;
-  padding-left: 10px;
 }
 
 .contact .debt{
   border: 1px solid black;
   padding: 10px;
   border-radius: 10px;
-  margin: 5px;
+  margin-top: 5px;
   display: inline-block;
   background-color: #f3f3f3;
   font-size: larger;

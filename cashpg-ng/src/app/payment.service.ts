@@ -28,6 +28,8 @@ export class PaymentService {
 
   sendPayment(identity: Identity, contact:Contact, amount:number){
     var payment = new Payment();
+    payment.id = this.uuidv4();
+    payment.to = contact.id;
     payment.amount = amount;
     return this.openpgpService.encryptThenSign({
       privateSignatureKey: identity.privateKeyArmored,
@@ -35,9 +37,9 @@ export class PaymentService {
       message: payment
     }).then(cipher =>{
       var transaction = new Transaction();
-      transaction.id = this.uuidv4();
+      transaction.id = payment.id;
       transaction.from = identity.id;
-      transaction.to = contact.id;
+      transaction.to = payment.to;
       transaction.paymentCipher = cipher;
       this.cashpgClient.publish(transaction);
       this.identityService.addOutgoingTransaction(contact, transaction.id, amount);

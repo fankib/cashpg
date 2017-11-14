@@ -49,9 +49,24 @@ export class IdentityService {
       .find(identity => identity.id == id);
   }
 
+  contains(identity, contact){
+    for ( var c of identity.contacts){
+      if ( c.id == contact.id){
+        return true;
+      }
+    }
+    return false;
+  }
+
   addContact(identity, contact){
     identity.contacts.push(contact);
     this.save();
+  }
+
+  toggleVerify(contact){
+    contact.verified = contact.verified === undefined ? true : !contact.verified;
+    this.save();
+    return contact.verified;
   }
 
   addOutgoingTransaction(contact:Contact, id:string, amount:number){

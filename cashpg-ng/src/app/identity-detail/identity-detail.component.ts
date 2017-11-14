@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { CurrencyPipe } from '../currency.pipe';
 
 import { Identity } from '../identity';
 
@@ -10,6 +11,9 @@ import { IdentityService } from '../identity.service';
 import { ContactService } from '../contact.service';
 import { CashpgClientService } from '../cashpg-client.service';
 import { OpenpgpService } from '../openpgp.service';
+import { PaymentValidationService } from '../payment-validation.service';
+import { MessageService } from '../message.service';
+
 
 @Component({
   selector: 'app-identity-detail',
@@ -20,6 +24,7 @@ import { OpenpgpService } from '../openpgp.service';
 export class IdentityDetailComponent implements OnInit {
 
   identity: Identity;
+  currencyPipe: CurrencyPipe = new CurrencyPipe();
 
   constructor(
     private route: ActivatedRoute,
@@ -27,11 +32,18 @@ export class IdentityDetailComponent implements OnInit {
     private identityService: IdentityService,
     private contactService: ContactService,
     private cashpgClientService: CashpgClientService,
-    private openpgpService : OpenpgpService
+    private openpgpService : OpenpgpService,
+    private paymentValidation : PaymentValidationService,
+    private message : MessageService,
 ) {
   }
 
   update(){
+    this.message.blockUI('Update')
+      .then(this.doUpdate.bind(this));
+  }
+
+  doUpdate(){
     var to = this.identity.id;
     this.cashpgClientService.findByTo(to).subscribe(transactions =>{
       var newTransactions = [];
@@ -47,10 +59,13 @@ export class IdentityDetailComponent implements OnInit {
           this.contactService.createContactFromId(from).then(contact =>{
             this.identityService.addContact(this.identity, contact);
             this.processTransaction(contact, transaction);
-          });
+          }).catch(this.message.errorCatcher());
         }else{
           this.processTransaction(contact, transaction);
         }
+      }
+      if (newTransactions.length == 0){
+        this.message.unblockUI();
       }
     });
   }
@@ -60,9 +75,22 @@ export class IdentityDetailComponent implements OnInit {
       publicSignatureKey: contact.publicKeyArmored,
       privateDecryptionKey: this.identity.privateKeyArmored,
       message: transaction.paymentCipher
-    }).then(payment =>{
-      this.identityService.addIncommingTransaction(contact, transaction.id, (<Payment>payment).amount);
+    }).then(paymentObj =>{
+      var payment: Payment = (<Payment>paymentObj);
+      // verify payment:
+      if ( payment.id != transaction.id ){
+        return;
+      }
+      if ( payment.to != this.identity.id ){
+        return;
+      }
+      if (! this.paymentValidation.validAmount(payment.amount) ){
+        return;
+      }
+      this.message.success('New payment from ' + contact.name + ' (' + this.currencyPipe.transform(payment.amount) +')');
+      this.identityService.addIncommingTransaction(contact, transaction.id, payment.amount);
     });
+    this.message.unblockUI();
   }
 
   contains(transaction){

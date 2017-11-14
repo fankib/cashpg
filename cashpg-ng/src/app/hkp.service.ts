@@ -10,11 +10,17 @@ export class HkpService {
   }
 
   search(query):Promise<any>{
-    var options = {
-      query: query
-    };
-    return this.mitHkp()
-      .lookup(options);
+    return new Promise((resolve, reject) =>{
+      try{
+        var options = {
+          query: query
+        };
+        this.mitHkp()
+          .lookup(options).then(resolve);
+      } catch ( error ){
+        reject('no result');
+      }
+    });
   }
 
   getKey(fingerprint):Promise<any>{

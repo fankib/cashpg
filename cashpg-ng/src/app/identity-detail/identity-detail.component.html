@@ -23,7 +23,9 @@
     class="contact verified-{{contact.verified}}"
     routerLink="/identity/{{identity.id}}/contact/{{contact.id}}">
       <p><span class="name">{{contact.name}}</span><br>
-      <span class="debt">My debt: {{contact.totalDebt | currency}}</span></p>
+        <span *ngIf="contact.totalDebt >= 0" class="debt">My debt: {{contact.totalDebt | currency}}</span>
+        <span *ngIf="contact.totalDebt < 0" class="debt">My credit: {{contact.totalDebt * -1 | currency}}</span>
+      </p>
     </li>
   </ul>
 

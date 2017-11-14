@@ -22,7 +22,9 @@ import { CashpgClientService } from './cashpg-client.service';
 import { PaymentService } from './payment.service';
 import { FingerprintComponent } from './fingerprint/fingerprint.component';
 import { PgparmoredComponent } from './pgparmored/pgparmored.component';
-
+import { PaymentValidationService } from './payment-validation.service';
+import { MessageService } from './message.service';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { PgparmoredComponent } from './pgparmored/pgparmored.component';
     AddContactComponent,
     PaymentComponent,
     FingerprintComponent,
-    PgparmoredComponent
+    PgparmoredComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +54,8 @@ import { PgparmoredComponent } from './pgparmored/pgparmored.component';
     HkpService,
     CashpgClientService,
     PaymentService,
+    PaymentValidationService,
+    MessageService,
   ],
   bootstrap: [AppComponent]
 })

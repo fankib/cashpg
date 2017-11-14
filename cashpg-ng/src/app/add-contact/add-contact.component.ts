@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Identity } from '../identity';
 import { IdentityService } from '../identity.service';
+import { MessageService } from '../message.service';
 
 import { Contact } from '../contact';
 import { ContactService } from '../contact.service';
@@ -23,7 +24,8 @@ export class AddContactComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private identityService: IdentityService,
-    private contactService: ContactService
+    private contactService: ContactService,
+    private message: MessageService,
   ) { }
 
   ngOnInit() {
@@ -36,17 +38,36 @@ export class AddContactComponent implements OnInit {
   }
 
   search(){
-    this.contactService.search(this.query).then(contacts => this.contacts = contacts);
+    this.message.blockUI('Search')
+      .then(() =>{
+        return this.contactService.search(this.query)
+          .then(contacts => {
+            this.message.unblockUI();
+            this.contacts = contacts
+          })
+          .catch(this.message.errorCatcher());
+    }).catch(this.message.errorCatcher());
   }
 
   addContact(contact:Contact){
     if (this.identity.id == contact.id){
+      this.message.error('You can not add yourself');
       return;
     }
-    this.contactService.updateWithPublicKeyArmored(contact).then(contact =>{
-      this.identityService.addContact(this.identity, contact);
-      this.router.navigate(["/identity", this.identity.id]);
-    });
+    if (this.identityService.contains(this.identity, contact)){
+      this.message.success('Already in your contacts');
+      return;
+    }
+    this.message.blockUI('Add contact')
+    .then(() =>{
+      return this.contactService.updateWithPublicKeyArmored(contact).then(contact =>{
+        this.message.unblockUI();
+        this.identityService.addContact(this.identity, contact);
+        this.router.navigate(["/identity", this.identity.id]);
+      });
+    })
+    .catch(this.message.errorCatcher());
+
   }
 
 }

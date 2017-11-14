@@ -2,6 +2,8 @@ import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
 
 import { IdentityService } from '../identity.service';
+import { MessageService } from '../message.service';
+
 import { Identity } from '../identity';
 import { Contact } from '../contact';
 
@@ -13,12 +15,21 @@ import { Contact } from '../contact';
 })
 export class ContactDetailComponent implements OnInit {
 
-  @Input() contact: Contact;
+  contact: Contact;
 
   constructor(
     private route: ActivatedRoute,
-    private identityService: IdentityService
+    private identityService: IdentityService,
+    private message: MessageService
   ) { }
+
+  verify(){
+    console.log('jump here');
+    var verified = this.identityService.toggleVerify(this.contact);
+    if ( verified ){
+      this.message.success('Fingerpint marked as verified');
+    }
+  }
 
   ngOnInit() {
     this.contact = this.getContact();

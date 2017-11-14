@@ -1,0 +1,12 @@
+<div *ngIf="messageService.messages.length > 0" class="messages">
+  <div *ngFor="let message of messageService.messages"
+    class="message message-{{message.type}}"
+    (click)="close()">
+    <div class="close pull-right"></div>
+    {{message.text}}
+  </div>
+</div>
+<div *ngIf="messageService.block" class="block">
+  <div class="background"></div>
+  <div class="text">{{messageService.block}}</div>
+</div>

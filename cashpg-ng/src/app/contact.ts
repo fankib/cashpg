@@ -4,7 +4,7 @@ export class Contact{
   id: string;
   name: string;
   publicKeyArmored: string;
-  verified: boolean;
+  verified: boolean = false;
   totalDebt: number;
   transactions: ClearTransaction[] = [];
 

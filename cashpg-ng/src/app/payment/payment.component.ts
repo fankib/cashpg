@@ -6,6 +6,8 @@ import { Contact } from '../contact';
 
 import { IdentityService } from '../identity.service';
 import { PaymentService } from '../payment.service';
+import { PaymentValidationService } from '../payment-validation.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-payment',
@@ -24,22 +26,37 @@ export class PaymentComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private identityService: IdentityService,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private paymentValidation: PaymentValidationService,
+    private message : MessageService
   ) { }
 
   sendPayment(){
-    var amount = parseInt(this.amountStr);
-    if ( amount !== amount ){ // ugly NaN check
+    var amountFloat = parseFloat(this.amountStr);
+    if ( amountFloat !== amountFloat ){ // ugly NaN check
+      this.message.error('Not a number!');
       return;
     }
     if ( this.currency == 'Fr' ){
-      amount = amount * 100;
+      amountFloat = amountFloat * 100;
     }
-    this.paymentService.sendPayment(this.identity, this.contact, amount).then(obj => {
-      this.router.navigate(['../'], {
-        relativeTo: this.route
+    var amount = Math.floor(amountFloat);
+
+    if ( ! this.paymentValidation.validAmount(amount) ){
+      this.message.error('Invalid amount!');
+      return false;
+    }
+
+    this.message.blockUI('Send payment')
+      .then(()=>{
+        this.paymentService.sendPayment(this.identity, this.contact, amount).then(obj => {
+          this.message.unblockUI();
+          this.router.navigate(['../'], {
+            relativeTo: this.route
+          });
+        });
       });
-    });
+
   }
 
   ngOnInit() {

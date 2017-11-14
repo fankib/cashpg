@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Identity } from '../identity';
 
 import { IdentityService } from '../identity.service';
@@ -12,14 +13,24 @@ import { IdentityService } from '../identity.service';
 export class IdentitiesComponent implements OnInit {
 
   identities;
+  welcome;
 
   constructor(
-    private identityService: IdentityService
+    private route: ActivatedRoute,
+    private identityService: IdentityService,
   ) {
+
+    var source = this.route.snapshot.queryParams["source"];
+    if ( Math.random() < 0.1 && (source === undefined || source != 'homescreen')){
+    //  this.welcome = "Add me to your homescreen!";
+    }
   }
 
   ngOnInit() {
     this.identities = this.identityService.findAll();
+
+
+
   }
 
 }

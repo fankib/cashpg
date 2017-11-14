@@ -1,0 +1,8 @@
+{
+  "short_name": "CashPG",
+  "name": "PGP FTW!",
+  "start_url": "/?source=homescreen",
+  "background_color": "#e26346",
+  "theme_color": "#682d20",
+  "display": "standalone"
+}
