@@ -19,6 +19,7 @@ export class PaymentComponent implements OnInit {
 
   identity: Identity;
   contact: Contact;
+  comment: string;
   amountStr: string;
   currency: string = "Fr";
 
@@ -49,7 +50,7 @@ export class PaymentComponent implements OnInit {
 
     this.message.blockUI('Send payment')
       .then(()=>{
-        this.paymentService.sendPayment(this.identity, this.contact, amount).then(obj => {
+        this.paymentService.sendPayment(this.identity, this.contact, this.comment, amount).then(obj => {
           this.message.unblockUI();
           this.router.navigate(['../'], {
             relativeTo: this.route

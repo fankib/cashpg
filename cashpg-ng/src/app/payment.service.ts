@@ -26,10 +26,11 @@ export class PaymentService {
     });
   }
 
-  sendPayment(identity: Identity, contact:Contact, amount:number){
+  sendPayment(identity: Identity, contact:Contact, comment:string, amount:number){
     var payment = new Payment();
     payment.id = this.uuidv4();
     payment.to = contact.id;
+    payment.comment = comment;
     payment.amount = amount;
     return this.openpgpService.encryptThenSign({
       privateSignatureKey: identity.privateKeyArmored,
@@ -42,7 +43,7 @@ export class PaymentService {
       transaction.to = payment.to;
       transaction.paymentCipher = cipher;
       this.cashpgClient.publish(transaction);
-      this.identityService.addOutgoingTransaction(contact, transaction.id, amount);
+      this.identityService.addOutgoingTransaction(contact, transaction.id, comment, amount);
     });
   }
 

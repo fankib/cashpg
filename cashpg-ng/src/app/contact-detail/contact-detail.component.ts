@@ -15,6 +15,7 @@ import { Contact } from '../contact';
 })
 export class ContactDetailComponent implements OnInit {
 
+  identityId: string;
   contact: Contact;
 
   constructor(
@@ -36,10 +37,10 @@ export class ContactDetailComponent implements OnInit {
   }
 
   getContact(): Contact{
-    const id = this.route.snapshot.paramMap.get('id');
-    const cid = this.route.snapshot.paramMap.get('cid');
+    this.identityId = this.route.snapshot.paramMap.get('id');
+    var cid = this.route.snapshot.paramMap.get('cid');
     for ( let identity of this.identityService.findAll() ){
-      if ( identity.id == id ){
+      if ( identity.id == this.identityId ){
         for ( let contact of identity.contacts){
           if ( contact.id == cid ){
             return contact;

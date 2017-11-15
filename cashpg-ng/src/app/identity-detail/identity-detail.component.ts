@@ -87,8 +87,10 @@ export class IdentityDetailComponent implements OnInit {
       if (! this.paymentValidation.validAmount(payment.amount) ){
         return;
       }
-      this.message.success('New payment from ' + contact.name + ' (' + this.currencyPipe.transform(payment.amount) +')');
-      this.identityService.addIncommingTransaction(contact, transaction.id, payment.amount);
+      var comment = payment.comment === undefined ? '' : payment.comment;
+      var commentStr = comment == '' ? '' : ', "' + comment + '"';
+      this.message.success('New payment from ' + contact.name + ' (' + this.currencyPipe.transform(payment.amount) + commentStr +')');
+      this.identityService.addIncommingTransaction(contact, transaction.id, comment, payment.amount);
     });
     this.message.unblockUI();
   }

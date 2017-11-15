@@ -17,6 +17,10 @@ h2 small .back{
   color: #777;
 }
 
+.oneline, .unbreakable{
+  white-space: nowrap;
+}
+
 .table{
   width: 100%;
 }
@@ -125,6 +129,7 @@ h2 small .back{
   position: fixed;
   top: 0px;
   width: 100%;
+  z-index: 5;
 }
 .taskbar h1{
   margin: 0px;

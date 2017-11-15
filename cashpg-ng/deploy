@@ -1,3 +1,4 @@
 #!/bin/bash
 
-cp ./dist/* ../../code/10_projekt/Tomcat/CashPG-Server/src/main/resources/static/
+cp ./dist/* ../../code/10_projekt/Tomcat/CashPG-Server/src/main/webapp/
+# cp ./dist/* ../../code/10_projekt/Tomcat/CashPG-Server/src/main/resources/static/

@@ -69,20 +69,24 @@ export class IdentityService {
     return contact.verified;
   }
 
-  addOutgoingTransaction(contact:Contact, id:string, amount:number){
+  addOutgoingTransaction(contact:Contact, id:string, comment:string, amount:number){
     var clearTransaction = new ClearTransaction();
     clearTransaction.id = id;
+    clearTransaction.creationDate = new Date();
     clearTransaction.outgoing = true;
+    clearTransaction.comment = comment;
     clearTransaction.amount = amount;
     contact.transactions.push(clearTransaction);
     this.updateTotal(contact);
     this.save();
   }
 
-  addIncommingTransaction(contact:Contact, id:string, amount:number){
+  addIncommingTransaction(contact:Contact, id:string, comment:string, amount:number){
     var clearTransaction = new ClearTransaction();
     clearTransaction.id = id;
+    clearTransaction.creationDate = new Date();
     clearTransaction.outgoing = false;
+    clearTransaction.comment = comment;
     clearTransaction.amount = amount;
     contact.transactions.push(clearTransaction);
     this.updateTotal(contact);
