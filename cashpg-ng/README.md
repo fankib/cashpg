@@ -1,3 +1,6 @@
+# Develpment Notes
+run `ng serve --host 0.0.0.0` to access from anywhere
+
 # CashpgNg
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.

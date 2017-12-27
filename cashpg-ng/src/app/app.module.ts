@@ -25,6 +25,8 @@ import { PgparmoredComponent } from './pgparmored/pgparmored.component';
 import { PaymentValidationService } from './payment-validation.service';
 import { MessageService } from './message.service';
 import { MessagesComponent } from './messages/messages.component';
+import { ExternalLockiDashboardComponent } from './external-locki-dashboard/external-locki-dashboard.component';
+import { LockiClientService } from './locki-client.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { MessagesComponent } from './messages/messages.component';
     PaymentComponent,
     FingerprintComponent,
     PgparmoredComponent,
-    MessagesComponent
+    MessagesComponent,
+    ExternalLockiDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +59,7 @@ import { MessagesComponent } from './messages/messages.component';
     PaymentService,
     PaymentValidationService,
     MessageService,
+    LockiClientService,
   ],
   bootstrap: [AppComponent]
 })

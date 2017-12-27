@@ -88,6 +88,10 @@ h2 small .back{
   float: right;
 }
 
+.clear{
+  clear:both;
+}
+
 .col-xs-6{
   width: 49%;
 }
