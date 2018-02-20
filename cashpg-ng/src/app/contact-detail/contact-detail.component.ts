@@ -34,6 +34,7 @@ export class ContactDetailComponent implements OnInit {
 
   ngOnInit() {
     this.contact = this.getContact();
+    
   }
 
   getContact(): Contact{

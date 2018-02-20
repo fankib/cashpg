@@ -7,8 +7,9 @@
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
       </button>
       <div class="btn-group pull-right">
-        <button class="btn btn-primary" (click)="verify()">
-          Verify
+        <button class="btn btn-primary btn-verified-{{contact.verified}}" ng-class="{'btn-verified': contact.verified}" (click)="verify()">
+          <span *ngIf="!contact.verified">Verify</span>
+          <span *ngIf="contact.verified"><i class="fa fa-check" aria-hidden="true"></i> Verified</span>
         </button>
         <button type="button"
         class="btn btn-primary"

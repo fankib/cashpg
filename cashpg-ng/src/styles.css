@@ -64,6 +64,10 @@ h2 small .back{
   background-color: #e5663b;
 }
 
+.btn-verified-true{
+  opacity: 0.6;
+}
+
 .btn-group{
   width: 100%;
 }
@@ -139,6 +143,7 @@ h2 small .back{
   margin: 0px;
   padding-top: 15px;
   padding-bottom: 15px;
+  cursor: pointer;
 }
 
 ul.link-list{
